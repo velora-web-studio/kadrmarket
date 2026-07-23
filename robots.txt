@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://velora-web-studio.github.io/kadrmarket/sitemap.xml
