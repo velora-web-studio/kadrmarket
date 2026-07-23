@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Подготовка фотографий для карточек товаров: кадрирование 3:4 и 1:1, resize, сжатие, инфографика и пакетный экспорт. Обработка локально в браузере.">
+  <meta name="theme-color" content="#111318">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <title>KadrMarket — подготовка фото для маркетплейсов</title>
+  <script src="./config.js"></script>
+  <script src="./license-data.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"KadrMarket",
+    "applicationCategory":"MultimediaApplication",
+    "operatingSystem":"Любая система с современным браузером",
+    "offers":[
+      {"@type":"Offer","price":"0","priceCurrency":"RUB","name":"Free"},
+      {"@type":"Offer","price":"490","priceCurrency":"RUB","name":"Pro"}
+    ]
+  }
+  </script>
+  <script type="module" crossorigin src="./assets/index-DxPdxeED.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-B1NsbLbi.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top">Kadr<span>Market</span></a>
+    <nav>
+      <a href="#editor">Редактор</a>
+      <a href="#pro">Pro</a>
+      <a href="./privacy.html">Приватность</a>
+    </nav>
+    <div id="licenseBadge" class="license-badge">Free</div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Фото остаются на вашем устройстве</p>
+        <h1>Готовьте карточки товаров без загрузки файлов на чужой сервер</h1>
+        <p class="hero-copy">Кадрирование, размер, сжатие, фон и аккуратная инфографика для популярных российских площадок. Всё работает внутри браузера.</p>
+        <a class="button primary" href="#editor">Открыть редактор</a>
+      </div>
+      <div class="hero-proof">
+        <b>0</b><span>файлов отправлено</span>
+        <b>3:4</b><span>готовый вертикальный формат</span>
+        <b>1:1</b><span>квадратный пресет</span>
+      </div>
+    </section>
+
+    <section id="editor" class="editor-shell">
+      <div class="editor-head">
+        <div><p class="eyebrow">Рабочая область</p><h2>Редактор карточки</h2></div>
+        <p id="privacyStatus" class="privacy-status">Сеть для обработки изображений не используется</p>
+      </div>
+
+      <div class="editor-grid">
+        <aside class="controls">
+          <label class="upload">
+            <input id="imageInput" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+            <span>Выбрать фотографии</span>
+            <small>JPG, PNG, WebP · до 25 МБ на файл</small>
+          </label>
+
+          <label>Пресет
+            <select id="preset">
+              <option value="wb">Вертикальный 900×1200 · 3:4</option>
+              <option value="square">Квадратный 1200×1200 · 1:1</option>
+              <option value="avito">Горизонтальный 1200×900 · 4:3</option>
+              <option value="custom">Свой размер</option>
+            </select>
+          </label>
+          <div id="customSize" class="two-cols hidden">
+            <label>Ширина<input id="customWidth" type="number" min="200" max="5000" value="1200"></label>
+            <label>Высота<input id="customHeight" type="number" min="200" max="5000" value="1200"></label>
+          </div>
+
+          <div class="two-cols">
+            <label>Вписывание
+              <select id="fit">
+                <option value="contain">Целиком</option>
+                <option value="cover">Заполнить кадр</option>
+              </select>
+            </label>
+            <label>Формат
+              <select id="format">
+                <option value="image/jpeg">JPEG</option>
+                <option value="image/webp">WebP</option>
+                <option value="image/png">PNG</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="two-cols">
+            <label>Фон<input id="background" type="color" value="#ffffff"></label>
+            <label>Акцент<input id="accent" type="color" value="#ff5c35"></label>
+          </div>
+
+          <label>Шаблон
+            <select id="template">
+              <option value="clean">Чистое фото</option>
+              <option value="bold" data-pro>Bold · Pro</option>
+              <option value="spec" data-pro>Характеристики · Pro</option>
+              <option value="minimal" data-pro>Минимал · Pro</option>
+            </select>
+          </label>
+          <label>Заголовок<input id="titleText" maxlength="55" placeholder="Например: Натуральный хлопок"></label>
+          <label>Подзаголовок<textarea id="subtitleText" maxlength="120" rows="3" placeholder="Короткие проверяемые характеристики"></textarea></label>
+          <label>Логотип <span class="pro-mark">Pro</span><input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp" data-pro></label>
+
+          <div class="actions">
+            <button id="exportOne" class="button primary" disabled>Скачать изображение</button>
+            <button id="exportBatch" class="button secondary" data-pro disabled>Скачать ZIP · Pro</button>
+          </div>
+          <button id="saveBrand" class="link-button" data-pro>Сохранить brand-kit · Pro</button>
+        </aside>
+
+        <section class="workspace">
+          <canvas id="previewCanvas" width="900" height="1200"></canvas>
+          <div id="emptyState" class="empty-state">
+            <strong>Загрузите фотографию товара</strong>
+            <span>Первый файл появится здесь. Обработка выполняется локально.</span>
+          </div>
+          <div id="fileStrip" class="file-strip"></div>
+          <p id="imageMeta" class="image-meta"></p>
+        </section>
+      </div>
+    </section>
+
+    <section class="requirements">
+      <p class="eyebrow">Пресеты</p>
+      <h2>Проверяем размер до выгрузки</h2>
+      <div class="requirement-grid">
+        <article><b>Вертикальный 3:4</b><span>900×1200 для универсальной вертикальной карточки</span></article>
+        <article><b>Wildberries</b><span>JPG, PNG или WebP; официально минимум 700×933</span></article>
+        <article><b>Квадратный 1:1</b><span>Для категорий и площадок, использующих квадратную обложку</span></article>
+      </div>
+      <p class="source-note">Требования меняются. Пресеты обновлены 23.07.2026; перед публикацией проверяйте правила своей категории.</p>
+    </section>
+
+    <section id="pro" class="pro-section">
+      <div>
+        <p class="eyebrow">KadrMarket Pro</p>
+        <h2>Один платёж — 490 ₽</h2>
+        <ul>
+          <li>Пакетная обработка и ZIP</li>
+          <li>Дополнительные макеты инфографики</li>
+          <li>Логотип и сохранённый brand-kit</li>
+          <li>Офлайн-пакет и бессрочная лицензия</li>
+        </ul>
+      </div>
+      <button id="buyPro" class="button light">Купить Pro</button>
+    </section>
+
+    <section class="faq">
+      <h2>Вопросы</h2>
+      <details><summary>Фотографии загружаются на сервер?</summary><p>Нет. Декодирование, Canvas и экспорт работают локально в браузере. KadrMarket не получает содержимое файлов.</p></details>
+      <details><summary>Сервис гарантирует принятие карточки площадкой?</summary><p>Нет. Технические требования и правила категорий меняются; окончательное решение принимает площадка.</p></details>
+      <details><summary>Это официальный сервис площадок?</summary><p>Нет. KadrMarket — независимый редактор и не аффилирован с Avito, Ozon или Wildberries.</p></details>
+    </section>
+  </main>
+
+  <dialog id="orderDialog">
+    <form method="dialog">
+      <button class="dialog-close" aria-label="Закрыть">×</button>
+      <p class="eyebrow">Покупка Pro</p>
+      <h2>Оплата по СБП</h2>
+      <div class="order-data">
+        <span>Заказ</span><b id="orderId"></b>
+        <span>Банк</span><b id="orderBank"></b>
+        <span>Телефон</span><b id="orderPhone"></b>
+        <span>Получатель</span><b id="orderRecipient"></b>
+        <span>Сумма</span><b>490 ₽</b>
+      </div>
+      <p>После перевода нажмите кнопку: откроется письмо с номером заказа. Лицензия и Pro ZIP придут после проверки поступления.</p>
+      <a id="paidEmail" class="button primary" href="#">Я оплатил — отправить письмо</a>
+    </form>
+  </dialog>
+
+  <footer>
+    <span>© 2026 KadrMarket</span>
+    <a href="./license.html">Лицензия и условия</a>
+    <a href="./privacy.html">Конфиденциальность</a>
+    <span>Независимый продукт</span>
+  </footer>
+
+</body>
+</html>
