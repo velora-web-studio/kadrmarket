@@ -1,0 +1,17 @@
+{
+  "name": "KadrMarket",
+  "short_name": "KadrMarket",
+  "description": "Локальная подготовка изображений для карточек товаров",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f3ee",
+  "theme_color": "#111318",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
